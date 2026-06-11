@@ -45,7 +45,7 @@ The goal of this lab was to build an enterprise-style domain environment, genera
 
 The lab was built as a four-machine enterprise-style environment. The domain controller managed the `MYDFIR` domain, the Windows 10 endpoint was joined to the domain, Splunk collected logs from the Windows systems, and Kali Linux was used to simulate attacker activity.
 
-![Lab Architecture](images/architecture.png)
+![Lab Architecture](architecture.png)
 
 ### Environment Summary
 
@@ -62,11 +62,11 @@ The lab was built as a four-machine enterprise-style environment. The domain con
 
 Windows Server 2022 was configured as the Active Directory domain controller for the `MYDFIR` domain. Organizational Units were created to simulate a realistic enterprise structure, including separate IT and HR groups.
 
-![Active Directory Users and Computers](images/ad-users-ous.png)
+![Active Directory Users and Computers](ad-users-ous.png)
 
 The Windows 10 endpoint was successfully joined to the `MYDFIR` domain and authenticated using domain credentials.
 
-![Domain Join Verification](images/domain-join.png)
+![Domain Join Verification](domain-join.png)
 
 ---
 
@@ -74,11 +74,11 @@ The Windows 10 endpoint was successfully joined to the `MYDFIR` domain and authe
 
 Splunk Enterprise was deployed as the SIEM for the lab. A dedicated `endpoint` index was created to receive logs from the Windows domain controller and endpoint.
 
-![Splunk Endpoint Index](images/splunk-endpoint-index.png)
+![Splunk Endpoint Index](splunk-endpoint-index.png)
 
 Sysmon and Windows Security logs were forwarded into Splunk using the Splunk Universal Forwarder. The logs included Windows Security events and Sysmon telemetry from the domain-joined endpoint.
 
-![Splunk Log Ingestion](images/splunk-log-ingestion.png)
+![Splunk Log Ingestion](splunk-log-ingestion.png)
 
 ---
 
@@ -98,7 +98,7 @@ Although the brute-force attempt did not return valid credentials, it generated 
 crowbar -b rdp -u saiba -C passwords.txt -s 192.168.10.100/32
 ```
 
-![Crowbar RDP Brute Force Attempt](images/crowbar-rdp-attempt.png)
+![Crowbar RDP Brute Force Attempt](crowbar-rdp-attempt.png)
 
 ---
 
@@ -110,7 +110,7 @@ The RDP brute-force attempt generated Windows failed logon events. These were de
 index=endpoint EventCode=4625
 ```
 
-![Splunk EventCode 4625 Failed Logons](images/event-4625-failed-logons.png)
+![Splunk EventCode 4625 Failed Logons](event-4625-failed-logons.png)
 
 This detection maps to **MITRE ATT&CK T1110 — Brute Force**.
 
@@ -124,7 +124,7 @@ Windows Security EventCode 4688 was used to monitor process creation activity. T
 index=endpoint EventCode=4688
 ```
 
-![EventCode 4688 Process Creation](images/event-4688-process-creation.png)
+![EventCode 4688 Process Creation](event-4688-process-creation.png)
 
 ---
 
@@ -132,7 +132,7 @@ index=endpoint EventCode=4688
 
 Atomic Red Team was used to simulate account creation behavior associated with persistence. The lab executed **T1136.001 — Create Account: Local Account**, which creates a new local user and adds it to the local Administrators group.
 
-![Atomic Red Team T1136.001 Execution](images/atomic-red-team-t1136.png)
+![Atomic Red Team T1136.001 Execution](atomic-red-team-t1136.png)
 
 This activity is important because adversaries may create new accounts after gaining access to maintain persistence inside an environment.
 
@@ -146,7 +146,7 @@ After executing the Atomic Red Team test, Splunk was used to search for Windows 
 index=endpoint EventCode=4720
 ```
 
-![Splunk EventCode 4720 Account Creation](images/event-4720-account-creation.png)
+![Splunk EventCode 4720 Account Creation](event-4720-account-creation.png)
 
 This detection maps to **MITRE ATT&CK T1136.001 — Create Account: Local Account**.
 
