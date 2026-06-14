@@ -103,10 +103,14 @@ Process creation activity was collected through Sysmon and Windows Security logs
 | T1059 | Command and Scripting Interpreter |
 | T1087 | Account Discovery |
 
+## Analyst Output
+- [INC-2026-001 Incident Summary](./INC-2026-001_Incident_Summary.pdf) — Multi-stage intrusion report covering brute force detection, persistence, execution, and account discovery across four MITRE ATT&CK techniques.
+
 ## Repository Contents
 
 - README.md
 - AD_SOC_Lab_WriteUp_v3.pdf
+- INC-2026-001 Incident Summary.pdf
 - images/
 
 ## Key Takeaway
