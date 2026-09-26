@@ -46,10 +46,9 @@ The account-creation event (4720) persisted in Splunk even after the account was
 ## Repository Contents
  
 - `README.md`
-- `AD_SOC_Lab_WriteUp.pdf`
+- `AD_SOC_Lab_Writeup.pdf`
 - `INC-2026-001_Incident_Summary.pdf`
 - `images/`
 ## Key Takeaway
  
 This lab gave me hands-on experience standing up an Active Directory environment, centralizing its telemetry in Splunk, and writing SPL detections against real attacker behavior instead of relying on default logging. Building and attacking the same environment made the value of specific, field-anchored detection logic concrete rather than theoretical.
- 
